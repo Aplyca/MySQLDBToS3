@@ -1,14 +1,10 @@
-FROM alpine:latest
-LABEL maintainer=""
+FROM infrastructureascode/aws-cli
+
+LABEL maintainer="Aplyca"
 
 WORKDIR /usr/app
 
-RUN apk update
-RUN apk add mysql-client
-RUN apk add python py-pip
-RUN pip install awscli
-RUN apk del py-pip
-RUN rm -rf /var/cache/apk/*
+RUN apk --quiet --progress --update --no-cache add mysql-client
 
 ARG MYSQL_HOST
 ENV MYSQL_HOST ${MYSQL_HOST} 
