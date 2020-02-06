@@ -59,12 +59,14 @@ logit(){
 [ -z ${MYSQL_PASS} ] && logit ERROR "Must be defined a Mysql password"
 [ -z ${S3_BUCKET} ] && logit ERROR "Must be defined a s3 bucket"
 
-
 cd /tmp
-logit INFO "mysqldump --host ${MYSQL_HOST} --port ${MYSQL_PORT} -u ${MYSQL_USER} --password="${MYSQL_PASS}" ${MYSQL_DB} > ${FILE}"
+logit INFO "Executiong the mysqldump command"
+mysqldump --host ${MYSQL_HOST} --port ${MYSQL_PORT} -u ${MYSQL_USER} --password="${MYSQL_PASS}" ${MYSQL_DB} > ${FILE}
 if [ "${?}" -eq 0 ]; then
-  logit INFO "gzip ${FILE}"
-  logit INFO "aws s3 cp ${FILE}.gz s3://${S3_BUCKET}/${S3_DB_BKP_FOLDER}/"
+  logit INFO "Zipping file ${FILE}"
+  gzip ${FILE}
+  logit INFO "Uploading to S3"
+  aws s3 cp ${FILE}.gz s3://${S3_BUCKET}/${S3_DB_BKP_FOLDER}/
   if [ "${?}" -eq 0 ]; then
   	logit INFO "Uploaded to S3 successfully"
     exit 0
