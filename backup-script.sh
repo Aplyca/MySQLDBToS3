@@ -36,7 +36,7 @@ done
 
 VERBOSE=${VERBOSE:=false}
 TIMESTAMP=$(date +"%Y-%m-%d %T")
-FILE=${MYSQL_DUMP_FILE}-$(date +%Y-%m-%h).sql
+FILE=${MYSQL_DUMP_FILE}.sql
 
 ## Function to show INFO or ERROR logs
 ## Example: logit INFO "Test"
@@ -64,7 +64,7 @@ logit INFO "Executiong the mysqldump command"
 mysqldump --host ${MYSQL_HOST} --port ${MYSQL_PORT} -u ${MYSQL_USER} --password="${MYSQL_PASS}" ${MYSQL_DB} > ${FILE}
 if [ "${?}" -eq 0 ]; then
   logit INFO "Zipping file ${FILE}"
-  gzip ${FILE}
+  gzip -9 ${FILE}
   logit INFO "Uploading to S3"
   aws s3 cp ${FILE}.gz s3://${S3_BUCKET}/${S3_DB_BKP_FOLDER}/
   if [ "${?}" -eq 0 ]; then
