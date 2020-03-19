@@ -4,10 +4,10 @@ LABEL maintainer="Aplyca"
 
 WORKDIR /usr/app
 
-RUN apk --quiet --progress --update --no-cache add mysql-client
+RUN apk --quiet --progress --update --no-cache add mysql-client curl
 
-ENV MYSQL_PORT 3306
+ADD ./ /usr/app/
 
-COPY ./backup-script.sh /usr/app/
+ENTRYPOINT ["sh","/usr/app/docker-entrypoint.sh"]
 
-CMD ["sh","/usr/app/backup-script.sh","-v"]
+CMD ["-s"]
