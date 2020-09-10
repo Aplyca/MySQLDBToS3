@@ -148,12 +148,12 @@ mysql -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASS} -e 'use '"${MYSQL_DB}"
 
 if [ $? -eq 0 ]; then
 	# Delete database
-	logit INFO "Dropping database: ${MYSQL_DB}"
-	mysqladmin -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASS} drop ${MYSQL_DB} -f || logit ERROR "There was an error droping the database ${MYSQL_DB}"
+	# logit INFO "Dropping database: ${MYSQL_DB}"
+	# mysqladmin -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASS} drop ${MYSQL_DB} -f || logit ERROR "There was an error droping the database ${MYSQL_DB}"
 
 	# Create database
-	logit INFO "Creating database: ${MYSQL_DB}"
-	mysqladmin -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASS} create ${MYSQL_DB} -f || logit ERROR "There was an error creating the database ${MYSQL_DB}"
+	# logit INFO "Creating database: ${MYSQL_DB}"
+	# mysqladmin -h ${MYSQL_HOST} -u ${MYSQL_USER} -p${MYSQL_PASS} create ${MYSQL_DB} -f || logit ERROR "There was an error creating the database ${MYSQL_DB}"
 
 	# Upload dump to database
 	logit INFO "Importing database ${FILE} to server: ${MYSQL_HOST}"
