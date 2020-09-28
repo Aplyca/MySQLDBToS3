@@ -43,6 +43,7 @@ VERBOSE=${VERBOSE:=false}
 SLACK=${SLACK:-false}
 MYSQL_PORT=${MYSQL_PORT:-3306}
 FILE=${MYSQL_DUMP_FILE}.sql
+MYSQL_ARGS=${MYSQL_ARGS:=""}
 
 deleteFile(){
         if [ -e ./${1} ]; then
@@ -118,7 +119,7 @@ logit(){
 
 cd /tmp
 logit INFO "Executiong the mysqldump command"
-mysqldump --host ${MYSQL_HOST} --port ${MYSQL_PORT} -u ${MYSQL_USER} --password="${MYSQL_PASS}" ${MYSQL_DB} > ${FILE}
+mysqldump --host ${MYSQL_HOST} --port ${MYSQL_PORT} -u ${MYSQL_USER} --password="${MYSQL_PASS}" ${MYSQL_ARGS} ${MYSQL_DB} > ${FILE}
 if [ "${?}" -eq 0 ]; then
   logit INFO "Zipping file ${FILE}"
   gzip ${FILE}
